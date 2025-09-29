@@ -1,7 +1,15 @@
+﻿using Microsoft.EntityFrameworkCore;
+using UITour.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+var connectionString = builder.Configuration.GetConnectionString("MyDB");
+
+// Đăng ký DbContext với DI
+builder.Services.AddDbContext<UITourContext>(options =>
+    options.UseSqlServer(connectionString));
 
 var app = builder.Build();
 
